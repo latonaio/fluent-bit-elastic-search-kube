@@ -29,18 +29,23 @@ spec:
         ports:
           - containerPort: 2020
         env:
-        - name: FLUENT_ELASTICSEARCH_HOST
-          value: "elasticsearch.default"
-        - name: FLUENT_ELASTICSEARCH_PORT
-          value: "9200"
+          - name: FLUENT_ELASTICSEARCH_HOST
+            value: "elasticsearch.default"
+          - name: FLUENT_ELASTICSEARCH_PORT
+            value: "9200"
+        envFrom:
+          - configMapRef:
+              name: env-config
+          - secretRef:
+              name: env-secret
         volumeMounts:
-        - name: varlog
-          mountPath: /var/log
-        - name: varlibdockercontainers
-          mountPath: /var/lib/docker/containers
-          readOnly: true
-        - name: fluent-bit-config
-          mountPath: /fluent-bit/etc/
+          - name: varlog
+            mountPath: /var/log
+          - name: varlibdockercontainers
+            mountPath: /var/lib/docker/containers
+            readOnly: true
+          - name: fluent-bit-config
+            mountPath: /fluent-bit/etc/
       terminationGracePeriodSeconds: 10
       volumes:
       - name: varlog

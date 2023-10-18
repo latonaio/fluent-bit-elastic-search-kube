@@ -64,6 +64,9 @@ data:
         Retry_Limit     False
         Suppress_Type_Name On
         Index           data-platform
+        HTTP_User       ${ELASTICSEARCH_USER}
+        HTTP_Passwd     ${ELASTICSEARCH_PASSWORD}
+  
 
   parsers.conf: |
     [PARSER]
